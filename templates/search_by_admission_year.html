@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Search Students by Admission Year</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 2rem;
+    }
+
+    h1, h2 {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .search-form {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .search-form label {
+      margin-right: 1rem;
+      width: 100px; /* Adjust label width as needed */
+    }
+
+    .search-form input[type="text"] {
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+
+    .level-up-form {
+      text-align: center;
+      margin-top: 1rem;
+    }
+
+    .level-up-form button {
+      background-color: #4CAF50; /* Green */
+      color: white;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .level-up-form button:hover {
+      background-color: #45A049; /* Green shade on hover */
+    }
+  </style>
+</head>
+<body>
+  <h1>Search Students by Admission Year</h1>
+  <form class="search-form" method="post">
+    {% csrf_token %}
+    <label for="admission_year">Admission Year:</label>
+    <input type="text" id="admission_year" name="admission_year">
+    <button type="submit">Search</button>
+  </form>
+
+  {% if students %}
+    <h2>Students Admitted in {{ admission_year }}</h2>
+    <form class="level-up-form" method="post" action="{% url 'level_up_students' %}">
+      {% csrf_token %}
+      <input type="hidden" name="admission_year" value="{{ admission_year }}">
+      <button type="submit">Level Up</button>
+    </form>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>NID Card</th>
+          <th>Phone Number</th>
+          <th>Nationality</th>
+          <th>Country</th>
+          <th>Admission Date</th>
+          <th>Level</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for student in students %}
+          <tr>
+            <td>{{ student.name }}</td>
+            <td>{{ student.nid_card }}</td>
+            <td>{{ student.phone_number }}</td>
+            <td>{{ student.nationality }}</td>
+            <td>{{ student.country }}</td>
+            <td>{{ student.addmission_date }}</td>
+            <td>{{ student.class_or_level }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No students found for the specified admission year.</p>
+  {% endif %}
+</body>
+</html>

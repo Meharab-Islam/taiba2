@@ -1,0 +1,82 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <link rel="stylesheet" href="/static/css/manageDatabase.css">
+        <title>Taiba Learning</title>
+        <style>
+          /* Add custom styling for horizontal scroll */
+          .table-container {
+            width: 100%;
+            overflow-x: auto;
+          }
+      
+          /* Ensure that table headers are displayed in one line */
+          .table thead th {
+            white-space: nowrap;
+          }
+          .table tbody td {
+            white-space: nowrap;
+          }
+        </style>
+    </head>
+<body>
+    <a href="/" class="button-link">Go Home</a>
+    <table class="table table-bordered table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Student ID</th>
+            <th scope="col">Student Name</th>
+            <th scope="col">NID Number</th>
+            <th scope="col">Diploma/Course</th>
+            <th scope="col">Course Start Date</th>
+            <th scope="col">Course End Date</th>
+            <th scope="col">Course Fee</th>
+            <th scope="col">Tax</th>
+            <th scope="col">Total(course fee+Tax)</th>
+            <th scope="col">Paid</th>
+            <th scope="col">Rest Ammount</th>
+            <th scope="col">Class/Level</th>
+            <th scope="col">Addmission Fee</th>
+           
+          </tr>
+        </thead>
+        <tbody>
+            <tr>
+              {% for student in student %}
+                        
+              <tr>
+                  <th scope="row">{{student.id}}</th>
+                  <td>{{student.name}}</td>
+                  <td>{{student.nid_card}}</td>
+                  <td>{{student.course.name}}</td>
+                  <td>{{student.course.course_start_date}}</td>
+                  <td>{{student.course.course_end_date}}</td>
+                  <td>{{student.course.course_fee}}</td>
+                  <td>{{student.tax}}</td>
+                  <td>{{student.tax}}</td>
+                  {% if student.is_paid == 0 %}
+                  <td>No</td>
+                  {% else %}
+                  <td>Yes</td>
+                  {% endif %}
+                  <td>{{student.addmision_fee}}</td>
+                  <td>{{student.class_or_level}}</td>
+                  <td>{{student.addmision_fee}}</td>
+                  <td><a href="">Read More</a></td>
+              </tr>
+              
+              {% endfor %}
+            </tr>
+           
+
+        </tbody>
+
+      </table>
+    
+</body>
+</html>

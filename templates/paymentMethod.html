@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/css/paymentMethod.css">
+    <title>Taiba Learning</title>
+</head>
+<body>
+    <body>
+
+        <header>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="http://127.0.0.1:8000">Home</a></li>
+                    <li><a href="http://127.0.0.1:8000/addmission/">Student Registration</a></li>
+                    <li><a href="http://127.0.0.1:8000/addmission/payment-method/">Payment System</a></li>
+                </ul>
+            </nav>
+        </header>
+    
+        <div class="container">
+            <form action="#" method="post" class="registration-form">
+                {% csrf_token %}
+                <h1>Payment System</h1>
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+    
+                <label for="nationality">Nationality:</label>
+                <input type="text" id="nationality" name="nationality" required>
+                <label for="installment">1<sup>st</sup> Installment:</label>
+                <input type="date" id="level" name="installment" required>
+    
+                <label for="level">Admission Date:</label>
+                <input type="date" id="level" name="level" required>
+
+                <label for="name">Admission Fee:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="name">Cost For Diploma:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="name">Tax:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="name">Total Fee:</label>
+                <input type="text" id="name" name="name" required>
+
+    
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+</body>
+</html>

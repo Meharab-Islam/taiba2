@@ -1,0 +1,69 @@
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 20px;
+    width: 100%; /* Set container to 100% width */
+}
+
+.body-content {
+    flex: 2;
+    box-sizing: border-box;
+}
+
+.institution-name {
+    text-transform: uppercase;
+}
+
+.student-list {
+    list-style: none;
+    padding: 0;
+}
+
+.student-list li {
+    margin-bottom: 10px;
+}
+
+.sidebar {
+    flex: 1;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.button-link {
+    display: block;
+    margin-bottom: 10px;
+    padding: 10px;
+    text-decoration: none;
+    color: #fff;
+    background-color: #007BFF;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.button-link:hover {
+    background-color: #0056b3;
+    color: white;
+}
+
+
+/* Responsive Styles */
+@media screen and (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .body-content {
+        flex: 1;
+    }
+
+    .sidebar {
+        flex: 1;
+        margin-top: 20px;
+    }
+}

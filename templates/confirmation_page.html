@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <title>Confirm Page</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f4f4;
+    }
+    .invoice-container {
+      max-width: 600px;
+      margin: 50px auto;
+      background-color: #fff;
+      padding: 30px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      border-radius: 15px;
+    }
+    .invoice-header {
+      text-align: center;
+      padding-bottom: 20px;
+    }
+    .invoice-header h2 {
+      color: #2c3e50;
+    }
+    .invoice-details {
+      margin-top: 20px;
+    }
+    .invoice-details table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    .invoice-details th,
+    .invoice-details td {
+      border: 1px solid #ecf0f1;
+      padding: 15px;
+      text-align: left;
+    }
+    .invoice-details th {
+      background-color: #3498db;
+      color: #fff;
+    }
+    .invoice-details td {
+      background-color: #ecf0f1;
+    }
+    .invoice-total {
+      margin-top: 20px;
+      text-align: right;
+    }
+    .invoice-total h4 {
+      color: #2ecc71;
+    }
+    @media print {
+        /* Hide the button when printing */
+        .noPrint {
+            display: none;
+        }
+      }
+  </style>
+</head>
+<body>
+
+  <div class="container invoice-container">
+    <form id="confirmationForm" action="{% url 'save_confirmation'  %}" method="post">
+      {% csrf_token %}
+    <div class="invoice-header">
+      <h2>Confirm The Form</h2>
+    </div>
+
+    <div class="invoice-details">
+      <table>
+        <tr>
+          <th>Name</th>
+          <td>{{student.name}}</td>
+        </tr>
+        <tr>
+          <th>Course</th>
+          <td>{{student.course.name}}</td>
+        </tr>
+        <tr>
+          <th>Admission Fee</th>
+          <td>{{student.course.admission_fee}}</td>
+        </tr>
+        <tr>
+          <th>NID Card Number</th>
+          <td>{{student.nid_card}}</td>
+        </tr>
+        <tr>
+          <th>Phone Number</th>
+          <td>{{student.phone_number}}</td>
+        </tr>
+        <tr>
+          <th>Nationality</th>
+          <td>{{student.nationality}}</td>
+        </tr>
+        <tr>
+          <th>Country</th>
+          <td>{{student.country}}</td>
+        </tr>
+        <tr>
+          <th>Tax</th>
+          {% if student.tax == 0.5 %}
+          <td>50%</td>
+          {% else %}
+          <td>0%</td>
+          {% endif %}
+        </tr>
+        <tr>
+          <th>Course Fee</th>
+          <td>{{student.course.course_fee}}</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="invoice-total">
+      <h4>Total Amount: {{total}}</h4>
+    </div>
+    
+    <!-- Pass the student data as hidden fields -->
+    <input type="hidden" name="name" value="{{ student.name }}">
+    <input type="hidden" name="mobile" value="{{ student.phone_number }}">
+    <input type="hidden" name="nid" value="{{ student.nid_card }}">
+    <input type="hidden" name="nationality" value="{{ student.nationality }}">
+    <input type="hidden" name="courses" value="{{ student.course.id }}">
+    <input type="hidden" name="country" value="{{ student.country }}">
+    <input type="hidden" name="date" value="{{ student.addmission_date }}">
+    <input type="hidden" name="tax" value="{{ student.tax }}">
+    <input type="hidden" name="total_with_tax" value="{{ total }}">
+    <input type="hidden" name="installment_per_month" value="{{ per_month_installment_amount }}">
+    <input type="hidden" name="admission_fee" value="{{student.course.admission_fee}}">
+    <input type="hidden" name="num_extra_installments" value="{{ num_extra_installments }}">
+
+    <button type="button" class="btn btn-primary noPrint" onclick="history.back();">Cancel</button>
+    <button type="button" class="btn btn-primary noPrint" onclick="window.print();">Print</button>
+    <button type="button" class="btn btn-primary noPrint" onclick="confirmData();">Confirm</button>
+</form>
+  </div>
+ 
+
+  <script>
+    function confirmData() {
+        // Show a confirmation dialog
+        var isConfirmed = confirm("Do you want to confirm and save the data?");
+        if (isConfirmed) {
+            // If confirmed, submit the form
+            document.getElementById("confirmationForm").submit();
+        }
+    }
+
+    function cancelData() {
+        // Reset the form fields to their initial state
+        document.getElementById("name").value = document.getElementById("initial_name").value;
+        document.getElementById("mobile").value = document.getElementById("initial_mobile").value;
+        document.getElementById("nid").value = document.getElementById("initial_nid").value;
+        document.getElementById("nationality").value = document.getElementById("initial_nationality").value;
+        document.getElementById("courses").value = document.getElementById("initial_courses").value;
+        document.getElementById("country").value = document.getElementById("initial_country").value;
+        document.getElementById("date").value = document.getElementById("initial_date").value;
+    
+        // Get the CSRF token from the page's cookies
+        var csrftoken = document.cookie.match(/csrftoken=([^;]+)/)[1];
+        consol.log("Tap")
+    
+        // Send a request to cancel and delete the temporary data
+        fetch("{% url 'cancel_confirmation' %}", {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': csrftoken
+            },
+        })
+        .then(response => {
+            if (response.ok) {
+                // Redirect back to the addmission form on cancellation
+                window.location.href = "{% url 'addmission' %}";
+            }
+        });
+    }
+</script>
+</body>
+</html>

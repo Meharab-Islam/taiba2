@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upload Excel File</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 2rem;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0 auto;
+      max-width: 400px; /* Adjust width as needed */
+      padding: 1rem;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+
+    form input[type="file"] {
+      padding: 0.5rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+    }
+
+    form button[type="submit"],
+    form button[type="button"] {
+      background-color: #4CAF50; /* Green */
+      color: white;
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-bottom: 0.5rem;
+    }
+
+    form button[type="submit"]:hover,
+    form button[type="button"]:hover {
+      background-color: #45A049; /* Green shade on hover */
+    }
+  </style>
+</head>
+<body>
+  <h1>Upload Student Data</h1>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="file" name="file"> <!-- Ensure the name attribute is "file" -->
+    <button type="submit">Upload</button>
+</form>
+  <form method="get" action="{% url 'download_student_info_demo' %}">
+    <button type="submit">Download Demo Excel</button>
+  </form>
+</body>
+</html>

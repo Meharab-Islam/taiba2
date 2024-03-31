@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <title>Student Report</title>
+  <style>
+    .report-container {
+      padding: 20px;
+    }
+    .report-title {
+      font-size: 2em;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .report-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .report-table th,
+    .report-table td {
+      padding: 10px;
+      border: 1px solid #ddd;
+    }
+    .report-table th {
+      text-align: left;
+      font-weight: bold;
+    }
+    .buttons {
+      text-align: center;
+      margin-top: 20px;
+    }
+    .buttons button {
+      padding: 10px 20px;
+      margin: 5px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .print-btn {
+      background-color: #4caf50;
+      color: white;
+    }
+    .back-btn {
+      background-color: #cccccc;
+      color: black;
+    }
+    @media print {
+        /* Hide the button when printing */
+        .noPrint {
+            display: none;
+        }
+      }
+  </style>
+</head>
+<body>
+  <div class="container report-container">
+    <h1 class="report-title">Student Report</h1>
+    <table class="report-table">
+      <tbody>
+        <tr>
+          <th>Student Name:</th>
+          <td>{{ student.name }}</td>
+        </tr>
+        <tr>
+          <th>Course Name:</th>
+          <td>{{ student.course.name }}</td>
+        </tr>
+        <tr>
+          <th>Course Fee:</th>
+          <td>{{ student.course.course_fee }}</td>
+        </tr>
+        <tr>
+          <th>Per Month Installment:</th>
+          <td>{{ student.per_month_installment_amount }}</td>
+        </tr>
+        <tr>
+          <th>Class/Level:</th>
+          <td>{{ student.class_or_level }}</td>
+        </tr>
+        <tr>
+          <th>Admission Date:</th>
+          <td>{{ student.addmission_date }}</td>
+        </tr>
+        <tr>
+          <th>National ID Card:</th>
+          <td>{{ student.nid_card }}</td>
+        </tr>
+        <tr>
+          <th>Country:</th>
+          <td>{{ student.country }}</td>
+        </tr>
+        <tr>
+          <th>Nationality:</th>
+          <td>{{ student.nationality }}</td>
+        </tr>
+        <tr>
+          <th>Phone Number:</th>
+          <td>{{ student.phone_number }}</td>
+        </tr>
+        <tr>
+          <th>Tax:</th>
+          {% if student.tax == 0.5 %}
+            <td>50%</td>
+          {% else %}
+            <td>0%</td>
+          {% endif %}
+        
+        </tr>
+        <tr>
+          <th>Admission Fee:</th>
+          <td>{{ student.addmision_fee }}</td>
+        </tr>
+        <tr>
+          <th>Total Paid Amount:</th>
+          <td>{{ student.total_paid_amount }}</td>
+        </tr>
+        <tr>
+          <th>Total Payable Amount:</th>
+          <td>{{ student.total_payable_amount }}</td>
+        </tr>
+        <tr>
+          <th>Due Amount:</th>
+          <td>{{ due_amount }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="buttons">
+      <button class="print-btn noPrint" onclick="window.print();">Print</button>
+      <button class="back-btn noPrint" onclick= "history.back();">Back</button>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Invoice</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f8f9fa;
+    }
+
+    .invoice-container {
+      max-width: 800px;
+      margin: 50px auto;
+      background-color: #fff;
+      padding: 30px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .invoice-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .invoice-header h2 {
+      color: #007bff;
+    }
+
+    .invoice-details {
+      margin-bottom: 30px;
+    }
+
+    .invoice-details span {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .institution-logo {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .invoice-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    .invoice-table th, .invoice-table td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: left;
+    }
+
+    .invoice-footer {
+      margin-top: 30px;
+    }
+
+    .total-amount {
+      font-weight: bold;
+    }
+
+    @media print {
+      /* Hide the button when printing */
+      .noPrint {
+          display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container invoice-container">
+   
+<div class="invoice-header">
+  {% comment %} <img src="institution_logo.png" alt="Institution Logo" class="institution-logo"> {% endcomment %}
+  <h2>Taiba Learning Institution</h2>
+  <u><h3>Student Invoice</h3></u>
+</div>
+
+<div class="invoice-details">
+  <span>Student Name: {{student.name}}</span>
+  <span>NID Number: {{student.nid_card}}</span>
+  <span>Nationality: {{student.nationality}}</span>
+  <span>Phone Number: {{student.phone_number}}</span>
+  <span>Date: {{date}}</span>
+</div>
+
+<table class="table invoice-table">
+  <thead>
+    <tr>
+      <th>Course Name</th>
+      <th>Start Date</th>
+      <th>End Date</th>
+      <th>Total Amount</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>{{student.course.name}}</td>
+      <td>{{student.course.course_start_date}}</td>
+      <td>{{student.course.course_end_date}}</td>
+      <td>{{student.course.course_fee}}</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Installments:</h3>
+  <table class="table invoice-table">
+    <thead>
+      <tr>
+        <th>Installment</th>
+        <th>Amount</th>
+        <th>Payment Method</th>
+        <th>Date</th>
+        <th>Transaction Id</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for installment in installments %}
+        <tr>
+        
+          <td>{{ installment.installment_number }}</td>
+          <td>{{ installment.installment_amount }}</td>
+          <td>{{ installment.payment_method }}</td>
+          <td>{{ installment.installment_date }}</td>
+          <td>{{ installment.transaction_id }}</td>
+        </tr>
+   
+        {% endfor %}
+     
+    </tbody>
+  </table>
+
+<div class="invoice-footer">
+  <p class="total-amount">Total Paid: ${{student.total_paid_amount}}</p>
+  
+   
+</div>
+  </div>
+  <div class="container text-center">
+    
+    <button type="button" class="btn btn-primary noPrint" onclick="history.back();">Cancel</button>
+    <button type="button" class="btn btn-primary noPrint" onclick="window.print();">Print</button>
+  </div>
+
+  <!-- Bootstrap JS and Popper.js -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+
+

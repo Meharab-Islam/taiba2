@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/css/addmissionForm.css">
+    <title>Taiba Learning</title>
+</head>
+<body>
+    <body>
+        {% comment %} <header>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="http://127.0.0.1:8000">Home</a></li>
+                    <li><a href="http://127.0.0.1:8000/addmission/">Student Registration</a></li>
+                    <li><a href="http://127.0.0.1:8000/addmission/payment-method/">Payment System</a></li>
+                </ul>
+            </nav>
+        </header> {% endcomment %}
+    
+<!-- addmissionForm.html -->
+<script>
+    {% comment %} function showConfirmation() {
+        // Display a confirmation popup
+        var isConfirmed = confirm("Are you sure you want to submit the form?");
+        return isConfirmed; {% endcomment %}
+    {% comment %} } {% endcomment %}
+</script>
+
+<div class="container">
+    <form action="{% url 'addmission' %}" method="post" class="registration-form" onsubmit="return showConfirmation()">
+        {% csrf_token %}
+        <h1>Student Registration</h1>
+
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="mobile">Mobile Number:</label>
+        <input type="text" id="mobile" name="mobile" required>
+
+        <label for="nid">NID Card Number:</label>
+        <input type="text" id="nid" name="nid" required>
+
+        <label for="nationality">Nationality:</label>
+        <input type="text" id="nationality" name="nationality" required>
+
+        <label for="courses">Diploma/Course:</label>
+        <select id="courses" name="courses" required>
+            {% for course in course %}
+            <option value="{{ course.id }}">{{ course.name }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="country">Country:</label>
+        <input type="text" id="country" name="country" required>
+
+        <label for="date">Admission Date:</label>
+        <input type="date" id="date" name="date" required>
+
+        <button type="submit">Submit</button>
+    </form>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,22 @@
+Set-ExecutionPolicy Unrestricted -Scope Process
+
+
+
+this structure for import student data from excel file
+
+Name,NID Card,Phone Number,Nationality,Country,Admission Date,Course,Tax,Class or Level,Is Paid,Admission Fee,Join Date,Due Amount,Per Month Installment Amount,Total Paid Amount,Extra Money,Total Payable Amount
+John Doe,123456789012,1234567890,American,USA,2024-01-01,Computer Science,50,1,False,100,2024-01-01,100,50,50,0,100
+Jane Smith,987654321098,0987654321,British,UK,2024-02-01,Engineering,30,2,True,150,2024-02-01,0,50,200,0,200
+Alice Johnson,456789012345,4561237890,Canadian,Canada,2024-03-01,Medicine,40,3,True,200,2024-03-01,0,70,210,0,210
+Bob Brown,321098765432,9876543210,Australian,Australia,2024-04-01,Mathematics,20,4,False,120,2024-04-01,80,30,140,0,140
+
+
+
+this structure for import installments of a student from excel file
+
+NID Card,Installment Amount,Installment Number,Comment,Payment Method,Installment Date,Transaction ID,Discount
+123456789012,50,1,First installment,Online,2024-01-01,12345,0
+123456789012,50,2,Second installment,Online,2024-02-01,23456,0
+987654321098,50,1,First installment,Online,2024-02-01,34567,0
+456789012345,70,1,First installment,Online,2024-03-01,45678,0
+456789012345,70,2,Second installment,Online,2024-04-01,56789,0

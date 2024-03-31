@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/css/index.css">
+    <title>Taiba Learning</title>
+    <script>
+        $(document).ready(function() {
+            // Hide additional student rows initially
+            $(".student-row:gt(5)").hide();
+
+            // Show more students when clicking the "See More" button
+            $(".see-more-btn").on("click", function() {
+                $(".student-row:hidden").slice(0, 3).slideDown();
+                if ($(".student-row:hidden").length === 0) {
+                    $(".see-more-btn").fadeOut();
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <body>
+        <div class="container">
+            <div class="body-content">
+                <h1 class="institution-name">Welcome to Taiba Higher Training Institute</h1>
+                <h2>Due Installment of this month:</h2>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Student Name</th>
+                            <th scope="col">Nationality</th>
+                            <th scope="col">Phone Number</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for student in student|slice:":6"  %}
+                            <tr class="student-row">
+                                <th scope="row">{{ student.id }}</th>
+                                <td>{{ student.name }}</td>
+                                <td>{{ student.nationality }}</td>
+                                <td>{{ student.phone_number }}</td>
+                                <td>
+                                    <a class="btn btn-primary btn-sm" href="{% url 'fee_deposite' pk=student.nid_card %}">Deposit Fees</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <!-- See More Button -->
+                {% comment %} <button class="btn btn-primary see-more-btn">See More</button> {% endcomment %}
+            </div>
+            <div class="sidebar">
+
+                <a href="addmission/" class="button-link">Addmission Form</a>
+                <a href="search-student/" class=" button-link">Fee Diposite</a>
+                <a href="search-statement/" class="button-link">Statement</a>
+                <a href="manage-database/" class="button-link">Manage Database</a>
+                <a href="{% url "search_by_admission_year" %}" class="button-link">Level</a>
+                {% comment %} <a href="" class="button-link">Manage Fee Record</a> {% endcomment %}
+                {% comment %} <a href="{% url "search_report" %}" class="button-link">Report / Analysis</a> {% endcomment %}
+                <a href="{% url "select_period" %}" class="button-link">Report / Analysis</a>
+                <a href="{% url "upload_file" %}" class="button-link">Import Student</a>
+                <a href="{% url "upload_installments" %}" class="button-link">Import Installments</a>
+
+            </div>
+        </div>
+</body>
+</html>

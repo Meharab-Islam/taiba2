@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <title>Search Students by Period</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 2rem;
+    }
+
+    h1, h2 {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .period-buttons {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+
+    .period-buttons button {
+      margin: 0.5rem; /* Add some spacing between buttons */
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+
+    /* Style the buttons to be blue */
+    .period-buttons button {
+      background-color: #0d6efd; /* Blue from Bootstrap */
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .period-buttons button:hover {
+      background-color: #0b58dc; /* Blue shade on hover */
+    }
+  </style>
+</head>
+<body>
+  <h1>Search Students by Period</h1>
+  <div class="period-buttons">
+    <form method="GET" action="{% url 'select_period' %}">
+      <button type="submit" name="period" value="last_7_days" class="btn btn-primary">Last 7 Days</button>
+      <button type="submit" name="period" value="last_1_month" class="btn btn-primary">Last 1 Month</button>
+      <button type="submit" name="period" value="last_6_months" class="btn btn-primary">Last 6 Months</button>
+      <button type="submit" name="period" value="last_1_year" class="btn btn-primary">Last 1 Year</button>
+    </form>
+  </div>
+
+  <h2>Students for the Selected Period {{ period }}</h2>
+  <div style="display: flex; justify-content: space-between;">
+    <button onclick="printTable()" class="btn btn-primary">Print Data</button>
+    <a href="{% url 'index' %}" class="btn btn-secondary">Back</a>  </div>
+  {% if students %}
+    <table id="studentTable">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Course Name</th>
+          <th>Course Fee</th>
+          <th>NID Card</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for student in students %}
+          <tr>
+            <td>{{ student.name }}</td>
+            <td>{{ student.course.name }}</td> 
+            <td>{{ student.course.course_fee }}</td>  
+            <td>{{ student.nid_card }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No students found for the selected period.</p>
+  {% endif %}
+
+  <script>
+    function printTable() {
+      var tableDiv = document.getElementById('studentTable');
+      var oldPage = document.body.innerHTML;
+      document.body.innerHTML = tableDiv.outerHTML;
+      window.print();
+      document.body.innerHTML = oldPage;
+    }
+  </script>
+</body>
+</html>
