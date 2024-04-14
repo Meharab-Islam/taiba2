@@ -30,7 +30,7 @@
                         <td>{{ student.nid_card }}</td>
                         <td>{{ student.phone_number }}</td>
                         <td>{{ student.course.name }}</td> {# Assuming 'course' is a ForeignKey to Course model #}
-                        <td><a href="http://127.0.0.1:8000/statement/{{student.nid_card}}">See Statement</a></td>
+                        <td><a href="{% url "statement" pk=student.nid_card %}">See Statement</a></td>
                     </tr>
                 {% endfor %}
             </tbody>

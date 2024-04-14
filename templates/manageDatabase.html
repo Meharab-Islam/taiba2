@@ -67,7 +67,7 @@
                   <td>{{student.addmision_fee}}</td>
                   <td>{{student.class_or_level}}</td>
                   <td>{{student.addmision_fee}}</td>
-                  <td><a href="">Read More</a></td>
+                  <td><a href="{% url "statement" pk=student.nid_card %}">Read More</a></td>
               </tr>
               
               {% endfor %}
